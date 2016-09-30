@@ -23,6 +23,7 @@ var piece=function(r,c){
   this.type=co;
   this.r=r;
   this.c=c;
+  this.v=1;
 }
 
 var piece1=new piece(1,1)
@@ -76,4 +77,12 @@ var creatPuzzle=function(){
             var b=Math.floor(Math.random()*51+205);
             return "rgb("+r+","+g+","+b+")"*/
           };
+function isEmpty(value){
+     if(value==null) return true;
+     if(value=="null") return true;
+     if(value==undefined) return true;
+     if(value=='undefined') return true;
+     if(value=='') return true;
+     return false;
+  }
 creatPuzzle();

@@ -3,10 +3,12 @@
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>保险</title>
+<title>puzzle</title>
 <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
 <link rel="stylesheet" type="text/css" href="css/index.css">
 <script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/init.js"></script>
+
 <link rel="stylesheet" href="css/modal.css">
 <!-- template for the modal component -->
 <script type="x/template" id="modal-template">
@@ -49,13 +51,12 @@
 </head>
 <body>
 	<div class="main-page" id="app">
-  		<div class="header"><img src="img/banner.jpg" alt="404" v-on:click="showDetail($index)" width="100%"></div>
       <div id="mainPuzzle">
         <div class="piece_r" v-for="n in puzzle_pieces.length" id="piece_r{{$index}}">
-          <div class="piece_c" v-on:mousedown="selected" v-for="piece in puzzle_pieces[$index]" id="piece_r{{n}}_c{{$index}}" data-row="{{n}}" data-col="{{$index}}" v-bind:style="{ background: colors[puzzle_pieces[n][$index].type]}">{{puzzle_pieces[n][$index].type}}</div>
+          <div class="piece_c" v-on:mousedown="onclick_" v-on:touchstart="selected" v-for="piece in puzzle_pieces[$index]" id="piece_r{{n}}_c{{$index}}" data-row="{{n}}" data-col="{{$index}}" v-bind:style="{ background: colors[puzzle_pieces[n][$index].type]}"></div>
         </div>
       </div>
-
+<span v-for="puzz in puzzle" track-by="$index">{{puzz}}</span>
 	  <modal :show.sync="showModal" :detail.sync="showdt">
       <div slot="detail" class="modal-for">
         <div class="modal-header" >

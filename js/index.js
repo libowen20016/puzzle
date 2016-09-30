@@ -14,6 +14,7 @@ var vm = new Vue({
           utargetC:"",
           puzzle_pieces:puzzle_pieces,
           colors:colors,
+
         },
         methods: {
           showDetail:function(i){
@@ -35,6 +36,15 @@ var vm = new Vue({
           dispel:function(){
 
           },
+          onclick_:function(e){
+              if(!isEmpty(window.webkit)){//IOS
+                 return false
+              }else if(!isEmpty(window.vhswebview)){//安卓
+                return false
+              }else{//页面
+                this.selected(e)
+              }
+          },
           selected:function(e){
             console.log(this.color)
             if(this.color){
@@ -46,9 +56,7 @@ var vm = new Vue({
               var targetT=this.puzzle_pieces[eR][eC].type
               var utargetT=this.puzzle_pieces[this.utargetR][this.utargetC].type
               if(piecemove){
-                  vm.puzzle_pieces[uR][uC].type=targetT;
-                  vm.puzzle_pieces[eR][eC].type=utargetT;
-/*              if(piecemove=="r1"){
+              if(piecemove=="r1"){
                 $("#"+this.utarget).addClass("D")
                 $(e.target).addClass("U")
               }else if(piecemove=="-r1"){
@@ -60,10 +68,58 @@ var vm = new Vue({
               }else if(piecemove=="-c1"){
                 $("#"+this.utarget).addClass("L")
                 $(e.target).addClass("R")
-              }*/
-              var sameT=needispel(eR,eC,this.puzzle_pieces).concat(needispel(uR,uC,this.puzzle_pieces))
+              }
+              setTimeout(
+                function(){
+                  $(".piece_c").css("display","none");
+                  $(".piece_c").css("display");
+                  vm.puzzle_pieces[uR][uC].type=targetT;
+                  vm.puzzle_pieces[eR][eC].type=utargetT;
+
+                  var sameT=needispel(eR,eC,this.puzzle_pieces).concat(needispel(uR,uC,this.puzzle_pieces))
+
+                  if(sameT.length>2){
+                  $(".piece_c").attr("class","piece_c");
+                  $(".piece_c").css("display","block");
+                  $(".piece_c").css("display");
+                    for(var i=0;i<sameT.length;i++){
+                      var r=sameT[i].r
+                      var c=sameT[i].c
+                      $(".piece_c").css("display");
+                      $("#piece_r"+r+"_c"+c).css('transform',"scale(0)")
+                      $("#piece_r"+r+"_c"+c).css('-webkit-transform',"scale(0)")
+                      vm.puzzle_pieces[r][c].v=0;
+                    }
+                    setTimeout(vm.changePuzzle,250);
+                  }else{
+                    vm.puzzle_pieces[uR][uC].type=utargetT;
+                    vm.puzzle_pieces[eR][eC].type=targetT;
+                    $(".piece_c").css("display","block");
+                    $(".piece_c").css("display");
+                    $(".piece_c").attr("class","piece_c");
+                  }
+                  vm.color=null;
+                  vm.utarget=null;
+                  vm.utargetR=null;
+                  vm.utargetC=null;
+                },250)
+
+/*              var sameT=needispel(eR,eC,this.puzzle_pieces).concat(needispel(uR,uC,this.puzzle_pieces))
 
               if(sameT.length>2){
+                setTimeout(
+                function(){
+                  $(".piece_c").css("display","none");
+                  $(".piece_c").css("display");
+                  $(".piece_c").attr("class","piece_c");
+                  $(".piece_c").css("display","block");
+                  vm.puzzle_pieces[uR][uC].type=targetT;
+                  vm.puzzle_pieces[eR][eC].type=utargetT;
+                  vm.color=null;
+                  vm.utarget=null;
+                  vm.utargetR=null;
+                  vm.utargetC=null;
+                },250)
                 for(var i=0;i<sameT.length;i++){
                   $("#piece_r"+sameT[i].r+"_c"+sameT[i].c).addClass('dispel')
                   var r=sameT[i].r
@@ -81,7 +137,7 @@ var vm = new Vue({
                   vm.utarget=null;
                   vm.utargetR=null;
                   vm.utargetC=null;
-                },250)}
+                },250)}*/
               //$("#"+this.utarget).css("background-color",$(e.target).css("background-color"))
               //$(e.target).css("background-color",this.color)
               }
@@ -94,7 +150,59 @@ var vm = new Vue({
             this.utargetR=$(".piece_c.selected").data("row")
             this.utargetC=$(".piece_c.selected").data("col")            
           },
+          changePuzzle:function(){
+            var cha=[];//需要改变的信息
+            for(var r=0;r<puzzle_pieces.length;r++){
+              var col=-1;
+              var n=0;
+              for(var c=0;c<puzzle_pieces[r].length;c++){
+                if(puzzle_pieces[r][c].v==0){
+                  (col==-1)?(col=c):((col>c)&&(col=c));
+                  n++;
+                  puzzle_pieces[r][c].v=1;
+                }
+              }
+              (n!=0)&&(cha[cha.length]={"r":r,"col":col,"num":n})
+            }
+            console.log(cha)
+            //重新赋值，和动画
+            for(var i=0;i<cha.length;i++){
+              for(var x=0;x<(8-cha[i].col);x++){
+                var me=$("#piece_r"+cha[i].r+"_c"+(cha[i].col+x));
+                me.css("display","none");
+                me.css("display");
+                $(".piece_c").attr("class","piece_c");
+                me.css("transform","translate("+(cha[i].num*100)+"%)");//移动
+                me.css("-webkit-transform","translate("+(cha[i].num*100)+"%)");
+                
 
+                //赋值
+
+                
+                if((cha[i].col+x)<=(7-cha[i].num)){
+                  vm.puzzle_pieces[cha[i].r][(cha[i].col+x)].type=vm.puzzle_pieces[cha[i].r][cha[i].col+x+cha[i].num].type
+                }else{
+                  var np=new piece(1,1);
+                  console.log(np)
+                  vm.puzzle_pieces[cha[i].r][(cha[i].col+x)].type=np.type
+
+                }
+
+                
+                //落下
+                
+                me.css("display","block");
+                me.css("display");
+                me.css("transform","");
+                me.css("transform","");
+                
+
+
+                
+              }
+            }
+            console.log(cha)
+          },
           
         }
       })

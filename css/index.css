@@ -20,9 +20,11 @@ img{display: block;}
 }
 
 #mainPuzzle{
-  width:600px;
-  height:600px;
+  max-width:750px;
   border: 1px solid #ddd;
+  margin:auto;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
 }
 .piece_c{
   box-sizing: border-box;
@@ -31,7 +33,8 @@ img{display: block;}
   height: 100% ;
   border-left:1px solid #ddd;
   border-top:1px solid #ddd;
-  transition: all .25s;
+  transition:transform .25s linear;
+  -webkit-transition:-webkit-transform .25s linear;
   position: relative;
   top:0px;
   left:0px;
@@ -68,8 +71,8 @@ img{display: block;}
   transform: translate(100%);
 }
 .piece_c.dispel{
-  transform: scale(0.1);
-  opacity: 0;
+  transform: scale(0)!important;
+
 }
 .piece_r{
   height:12.5%;
