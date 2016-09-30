@@ -20,10 +20,11 @@ img{display: block;}
 }
 
 #mainPuzzle{
-  max-width:600px;
+  max-width:750px;
   border: 1px solid #ddd;
   margin:auto;
   transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
 }
 .piece_c{
   box-sizing: border-box;
@@ -33,6 +34,7 @@ img{display: block;}
   border-left:1px solid #ddd;
   border-top:1px solid #ddd;
   transition:transform .25s linear;
+  -webkit-transition:-webkit-transform .25s linear;
   position: relative;
   top:0px;
   left:0px;

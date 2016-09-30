@@ -36,6 +36,15 @@ var vm = new Vue({
           dispel:function(){
 
           },
+          onclick_:function(e){
+              if(!isEmpty(window.webkit)){//IOS
+                 return false
+              }else if(!isEmpty(window.vhswebview)){//安卓
+                return false
+              }else{//页面
+                this.selected(e)
+              }
+          },
           selected:function(e){
             console.log(this.color)
             if(this.color){
@@ -78,6 +87,7 @@ var vm = new Vue({
                       var c=sameT[i].c
                       $(".piece_c").css("display");
                       $("#piece_r"+r+"_c"+c).css('transform',"scale(0)")
+                      $("#piece_r"+r+"_c"+c).css('-webkit-transform',"scale(0)")
                       vm.puzzle_pieces[r][c].v=0;
                     }
                     setTimeout(vm.changePuzzle,250);
@@ -88,7 +98,6 @@ var vm = new Vue({
                     $(".piece_c").css("display");
                     $(".piece_c").attr("class","piece_c");
                   }
-
                   vm.color=null;
                   vm.utarget=null;
                   vm.utargetR=null;
@@ -164,6 +173,7 @@ var vm = new Vue({
                 me.css("display");
                 $(".piece_c").attr("class","piece_c");
                 me.css("transform","translate("+(cha[i].num*100)+"%)");//移动
+                me.css("-webkit-transform","translate("+(cha[i].num*100)+"%)");
                 
 
                 //赋值
@@ -184,7 +194,7 @@ var vm = new Vue({
                 me.css("display","block");
                 me.css("display");
                 me.css("transform","");
-              
+                me.css("transform","");
                 
 
 

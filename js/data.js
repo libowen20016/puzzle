@@ -77,4 +77,12 @@ var creatPuzzle=function(){
             var b=Math.floor(Math.random()*51+205);
             return "rgb("+r+","+g+","+b+")"*/
           };
+function isEmpty(value){
+     if(value==null) return true;
+     if(value=="null") return true;
+     if(value==undefined) return true;
+     if(value=='undefined') return true;
+     if(value=='') return true;
+     return false;
+  }
 creatPuzzle();
