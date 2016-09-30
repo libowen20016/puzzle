@@ -23,6 +23,7 @@ var piece=function(r,c){
   this.type=co;
   this.r=r;
   this.c=c;
+  this.v=1;
 }
 
 var piece1=new piece(1,1)

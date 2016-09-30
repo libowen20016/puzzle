@@ -27,3 +27,13 @@ window.dpr = dpr;
 window.rem = rem;
 //document.getElementsByTagName('body')[0].style.zoom = scale;
 //console.log(document.getElementsByTagName('body'));
+(function (doc, win) {
+    var docEl = doc.documentElement,
+    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+    recalc = function () {
+    	$("#mainPuzzle").css("height",$("#mainPuzzle").css("width"));
+    };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
