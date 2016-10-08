@@ -15,7 +15,7 @@ var colors=[
             "#efff74",//yellow
             "#62ff6f",//green
             "#a95dec",//purple
-            "#fff",//
+            "url('img/1.jpg') no-repeat 0 0/100% 100%",
             "#ff7070",//
             "#f8931d",//orange
             ];
