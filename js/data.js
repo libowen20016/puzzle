@@ -16,7 +16,7 @@ var colors=[
             "#62ff6f",//green
             "#a95dec",//purple
             "#fff",//
-            "#333",//
+            "#ff7070",//
             "#f8931d",//orange
             ];
 var piece=function(r,c){
