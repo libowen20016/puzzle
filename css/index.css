@@ -18,7 +18,10 @@ img{display: block;}
   top: 0;
   width: 100%;
 }
-
+ul,li{
+  list-style:none;
+  margin:0px;
+}
 #mainPuzzle{
   max-width:750px;
   border: 1px solid #ddd;

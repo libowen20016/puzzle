@@ -1,4 +1,4 @@
-var puzzle_pieces=[
+var _puzzle_pieces=[
                     [0,0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,0,0],
@@ -8,7 +8,9 @@ var puzzle_pieces=[
                     [0,0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,0,0]
                   ];
-var colors=["#e42b2b",//red
+var colors=[
+            
+            "#e42b2b",//red
             "#2bcdff",//blue
             "#efff74",//yellow
             "#62ff6f",//green
@@ -25,8 +27,9 @@ var piece=function(r,c){
   this.c=c;
   this.v=1;
 }
-
+var point=0;
 var piece1=new piece(1,1)
+var vm;
 console.log(piece1)
 
 //某个方块的周围是否需要消除
@@ -35,41 +38,43 @@ var needispel=function(r,c,a){
   var myType=me.type;
   var rowS=[];
   var colS=[];
-  var sameT=[];
+  var sameT={rowS:null,colS:null};
   r=parseInt(r);
   c=parseInt(c);
   //row
   for(var i=1;(c-i)>=0;i++){
     var p=a[r][c-i];
-    console.log(p.constructor==piece)
-    if(p&&(p.constructor==piece)){console.log(11);if(p.type==myType){rowS[rowS.length]=p}else{break;}}
+    if(p&&(p.constructor==piece)){if(p.type==myType){rowS[rowS.length]=p}else{break;}}
   }
   for(var i=1;(c+i)<8;i++){
-    var p=a[r][c+i];
-        console.log(p)
+    var p=a[r][c+i];      
     if(p&&(p.constructor==piece)){if(p.type==myType){rowS[rowS.length]=p}else{break;}}
   }
   for(var i=1;(r-i)>=0;i++){
-    var p=a[r-i][c];
-        console.log(p)
+    var p=a[r-i][c];   
     if(p&&(p.constructor==piece)){if(p.type==myType){colS[colS.length]=p}else{break;}}
   }
   for(var i=1;(r+i)<8;i++){
-    var p=a[r+i][c];
-        console.log(p)
+    var p=a[r+i][c]; 
     if(p&&(p.constructor==piece)){if(p.type==myType){colS[colS.length]=p}else{break;}}
   }
-  if(rowS.length>=2){sameT=sameT.concat(rowS)}
-  if(colS.length>=2){sameT=sameT.concat(colS)}
-  if(sameT.length>=2){sameT=sameT.concat(me)}
-    console.log(colS)
-    console.log(rowS)
+
+  if(rowS.length>=2){sameT["rowS"]=rowS.concat(me)}
+  if(colS.length>=2){sameT["colS"]=colS.concat(me)}
+      console.log(sameT)
     return sameT;
+
+};
+
+//是否死地图
+var mapEnd=function(){
+
 };
 var creatPuzzle=function(){
-            for(var r=0;r<puzzle_pieces.length;r++){
-              for(var c=0;c<puzzle_pieces[r].length;c++){
-                puzzle_pieces[r][c]=new piece(r,c)
+            for(var r=0;r<_puzzle_pieces.length;r++){
+              for(var c=0;c<_puzzle_pieces[r].length;c++){
+                _puzzle_pieces[r][c]=new piece(r,c)
+                if((needispel(r,c,_puzzle_pieces).rowS)||(needispel(r,c,_puzzle_pieces).colS)){c--;console.log(r+":"+c)}
               }
             }
             /*var r=Math.floor(Math.random()*51+205);

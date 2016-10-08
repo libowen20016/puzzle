@@ -8,71 +8,18 @@
 <link rel="stylesheet" type="text/css" href="css/index.css">
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript" src="js/init.js"></script>
-
-<link rel="stylesheet" href="css/modal.css">
-<!-- template for the modal component -->
-<script type="x/template" id="modal-template">
-  <div class="modal-mask" v-show="show" transition="modal">
-    <div class="modal-wrapper">
-      <div class="modal-container" >
-      <div class="modal-forcontainer">
-      <slot name="detail">
-      </slot>
-      <br><br>
-      </div>
-        <div class="modal-footer">
-          <slot name="footer">
-            default footer
-            <button class="modal-default-button"
-              @click="show = false">
-              OK
-            </button>
-          </slot>
-        </div>
-      </div>
-    </div>
-  </div>
-</script>
-
-<script>
-  // register modal component
-  Vue.component('modal', {
-    template: '#modal-template',
-    props: {
-      show: {
-        type: Boolean,
-        required: true,
-        twoWay: true    
-      },
-      detail:{}
-    }
-  })
-</script>
 </head>
 <body>
 	<div class="main-page" id="app">
       <div id="mainPuzzle">
-        <div class="piece_r" v-for="n in puzzle_pieces.length" id="piece_r{{$index}}">
-          <div class="piece_c" v-on:mousedown="onclick_" v-on:touchstart="selected" v-for="piece in puzzle_pieces[$index]" id="piece_r{{n}}_c{{$index}}" data-row="{{n}}" data-col="{{$index}}" v-bind:style="{ background: colors[puzzle_pieces[n][$index].type]}"></div>
-        </div>
+        <ul class="piece_r" v-for="n in puzzle_pieces.length" id="piece_r{{$index}}">
+          <li class="piece_c" v-on:mousedown="onclick_" v-on:touchstart="selected" v-for="piece in puzzle_pieces[$index]" id="piece_r{{n}}_c{{$index}}" data-row="{{n}}" data-col="{{$index}}" v-bind:style="{ background: colors[puzzle_pieces[n][$index].type]}" track-by="$index"></li>
+        </ul>
       </div>
-<span v-for="puzz in puzzle" track-by="$index">{{puzz}}</span>
-	  <modal :show.sync="showModal" :detail.sync="showdt">
-      <div slot="detail" class="modal-for">
-        <div class="modal-header" >
-          <h3 v-text=""></h3>
-        </div>
-        <div class="modal-body">
-          <div v-text=""></div>
-        </div>
-      </div>  
-        <div slot="footer" @click="showModal = false">
-                  我知道啦
-        </div>
-    </modal>
+      <h1>{{point}}</h1>
   </div>
+
 <script type="text/javascript" src="js/data.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-
 </body>
 </html>

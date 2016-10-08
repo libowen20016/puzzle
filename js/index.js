@@ -12,9 +12,9 @@ var vm = new Vue({
           utarget:"",
           utargetR:"",
           utargetC:"",
-          puzzle_pieces:puzzle_pieces,
+          puzzle_pieces:_puzzle_pieces,
           colors:colors,
-
+          point:point,
         },
         methods: {
           showDetail:function(i){
@@ -75,9 +75,22 @@ var vm = new Vue({
                   $(".piece_c").css("display");
                   vm.puzzle_pieces[uR][uC].type=targetT;
                   vm.puzzle_pieces[eR][eC].type=utargetT;
-
-                  var sameT=needispel(eR,eC,this.puzzle_pieces).concat(needispel(uR,uC,this.puzzle_pieces))
-
+                  var rowS=[]
+                  var colS=[]
+                  if(needispel(eR,eC,vm.puzzle_pieces).rowS){
+                    rowS=rowS.concat(needispel(eR,eC,vm.puzzle_pieces).rowS);
+                  }
+                  if(needispel(eR,eC,vm.puzzle_pieces).colS){
+                    colS=colS.concat(needispel(eR,eC,vm.puzzle_pieces).colS);
+                  }
+                  if(needispel(uR,uC,vm.puzzle_pieces).rowS){
+                    rowS=rowS.concat(needispel(uR,uC,vm.puzzle_pieces).rowS);
+                  }
+                  if(needispel(uR,uC,vm.puzzle_pieces).colS){
+                    colS=colS.concat(needispel(uR,uC,vm.puzzle_pieces).colS);
+                  }
+                  var sameT=rowS.concat(colS)
+                  vm.point+=(100*sameT.length)
                   if(sameT.length>2){
                   $(".piece_c").attr("class","piece_c");
                   $(".piece_c").css("display","block");
@@ -152,14 +165,16 @@ var vm = new Vue({
           },
           changePuzzle:function(){
             var cha=[];//需要改变的信息
-            for(var r=0;r<puzzle_pieces.length;r++){
+            var rowS=[]
+            var colS=[]
+            for(var r=0;r<_puzzle_pieces.length;r++){
               var col=-1;
               var n=0;
-              for(var c=0;c<puzzle_pieces[r].length;c++){
-                if(puzzle_pieces[r][c].v==0){
+              for(var c=0;c<_puzzle_pieces[r].length;c++){
+                if(_puzzle_pieces[r][c].v==0){
                   (col==-1)?(col=c):((col>c)&&(col=c));
                   n++;
-                  puzzle_pieces[r][c].v=1;
+                  _puzzle_pieces[r][c].v=1;
                 }
               }
               (n!=0)&&(cha[cha.length]={"r":r,"col":col,"num":n})
@@ -183,7 +198,6 @@ var vm = new Vue({
                   vm.puzzle_pieces[cha[i].r][(cha[i].col+x)].type=vm.puzzle_pieces[cha[i].r][cha[i].col+x+cha[i].num].type
                 }else{
                   var np=new piece(1,1);
-                  console.log(np)
                   vm.puzzle_pieces[cha[i].r][(cha[i].col+x)].type=np.type
 
                 }
@@ -195,13 +209,46 @@ var vm = new Vue({
                 me.css("display");
                 me.css("transform","");
                 me.css("transform","");
-                
-
-
-                
               }
             }
+            for(var i=0;i<cha.length;i++){
+              for(var x=0;x<(8-cha[i].col);x++){
+                //是否需要消除
+                var A=needispel(cha[i].r,(cha[i].col+x),vm.puzzle_pieces)
+                //console.log(A)
+                if(A.rowS){
+                    rowS=rowS.concat(A.rowS);
+                }
+                if(A.colS){
+                    colS=colS.concat(A.colS);
+                }
+              }
+            }
+            var sameT=rowS.concat(colS)
+            if(sameT.length>2){
+            setTimeout(function(){
+                  vm.point+=(100*sameT.length);
+
+                    for(var i=0;i<sameT.length;i++){
+                      var r=sameT[i].r
+                      var c=sameT[i].c
+                      $(".piece_c").css("display");
+                      $("#piece_r"+r+"_c"+c).css('transform',"scale(0)")
+                      $("#piece_r"+r+"_c"+c).css('-webkit-transform',"scale(0)")
+                      vm.puzzle_pieces[r][c].v=0;
+                    }
+                    setTimeout(vm.changePuzzle,300);
+            },300);
+
+                  }
             console.log(cha)
+          },
+          clearPuzzle:function(){
+            for(var r=0;r<_puzzle_pieces.length;r++){
+              for(var c=0;c<_puzzle_pieces[r].length;c++){
+                vm.puzzle_pieces[r].$set(c,_puzzle_pieces[r][c])
+              }
+            }
           },
           
         }
