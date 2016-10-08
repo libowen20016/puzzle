@@ -11,7 +11,7 @@ var _puzzle_pieces=[
 var colors=[
             
             "#e42b2b",//red
-            "#2bcdff",//blue
+            "url('img/8.png') no-repeat 0 0/100% 100%",//"#2bcdff",blue
             "#efff74",//yellow
             "#62ff6f",//green
             "#a95dec",//purple
