@@ -11,11 +11,11 @@ var _puzzle_pieces=[
 var colors=[
             
             "#e42b2b",//red
-            "url('img/8.png') no-repeat 0 0/100% 100%",//"#2bcdff",blue
+            "#2bcdff",//"url('img/8.png') no-repeat 0 0/100% 100%",blue
             "#efff74",//yellow
             "#62ff6f",//green
             "#a95dec",//purple
-            "url('img/1.jpg') no-repeat 0 0/100% 100%",
+            "#666",//"url('img/1.jpg') no-repeat 0 0/100% 100%",
             "#ff7070",//
             "#f8931d",//orange
             ];
