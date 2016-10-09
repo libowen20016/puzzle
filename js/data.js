@@ -12,15 +12,16 @@ var colors=[
             
             "#e42b2b",//red
             "#2bcdff",//"url('img/8.png') no-repeat 0 0/100% 100%",blue
-            "#efff74",//yellow
+            "#f8931d",//orange
+            
             "#62ff6f",//green
             "#a95dec",//purple
             "#666",//"url('img/1.jpg') no-repeat 0 0/100% 100%",
             "#ff7070",//
-            "#f8931d",//orange
+            "#efff74",//yellow
             ];
 var piece=function(r,c){
-  var co=parseInt(Math.random()*8)
+  var co=parseInt(Math.random()*5)
   this.color=colors[co];
   this.type=co;
   this.r=r;
