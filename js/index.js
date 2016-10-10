@@ -207,6 +207,8 @@ var vm = new Vue({
                 
                 me.css("display","block");
                 me.css("display");
+                me.css("display");
+                me.css("display");
                 me.css("transform","");
                 me.css("transform","");
               }
