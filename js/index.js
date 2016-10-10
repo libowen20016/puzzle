@@ -188,7 +188,7 @@ var vm = new Vue({
                 me.css("display");
                 $(".piece_c").attr("class","piece_c");
                 me.css("transform","translate("+(cha[i].num*100)+"%)");//移动
-                me.css("-webkit-transform","translate("+(cha[i].num*100)+"%)");
+                me.css("-webkit-transform","-webkit-translate("+(cha[i].num*100)+"%)");
                 
 
                 //赋值
