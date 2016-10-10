@@ -45,12 +45,13 @@ ul,li{
   box-sizing: border-box;
   transition:transform .25s linear;
   -webkit-transition:-webkit-transform .25s linear;
-    border-top: 12px solid rgba(225,225,225,.2);
-    border-bottom: 12px solid rgba(0,0,0,.2);
-    border-left: 12px solid rgba(0,0,0,.5);
-    border-right: 10px solid rgba(225,225,225,.5);
+    border-top: .1rem solid rgba(225,225,225,.2);
+    border-bottom: .1rem solid rgba(0,0,0,.2);
+    border-left: .1rem solid rgba(0,0,0,.5);
+    border-right: .1rem solid rgba(225,225,225,.5);
     width:100%;
     height:100%;
+    border-radius: .1rem;
 }
 
 .piece_c.selected:after{
@@ -83,6 +84,10 @@ ul,li{
   -webkit-transform: translate(-100%);
   -o-transform: translate(-100%);
   transform: translate(-100%);
+}
+.piece_c .cover{
+  width: 100%;
+  height: 100%;
 }
 .piece_c.R{
   -ms-transform: translate(100%);
