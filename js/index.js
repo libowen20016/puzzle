@@ -109,6 +109,9 @@ var vm = new Vue({
                     vm.puzzle_pieces[eR][eC].type=targetT;
                     $(".piece_c").css("display","block");
                     $(".piece_c").css("display");
+                    $(".piece_c").css("display");
+                    $(".piece_c").css("display");
+                    $(".piece_c").css("display");
                     $(".piece_c").attr("class","piece_c");
                   }
                   vm.color=null;
