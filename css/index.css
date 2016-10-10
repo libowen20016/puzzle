@@ -9,6 +9,7 @@ body {
   overflow: auto;
   color: #555;
   font-family: 'Microsoft YaHei';
+  background: #000;
 }
 img{display: block;}
 
