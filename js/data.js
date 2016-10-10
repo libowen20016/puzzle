@@ -12,6 +12,7 @@ var colors=[
             
             "#e42b2b",//red
             "#2bcdff",//"url('img/8.png') no-repeat 0 0/100% 100%",blue
+            "#ff7070",//pink
             "#f8931d",//orange
             
             "#62ff6f",//green
@@ -19,6 +20,7 @@ var colors=[
             "#666",//"url('img/1.jpg') no-repeat 0 0/100% 100%",
             "#ff7070",//
             "#efff74",//yellow
+            
             ];
 var piece=function(r,c){
   var co=parseInt(Math.random()*5)
